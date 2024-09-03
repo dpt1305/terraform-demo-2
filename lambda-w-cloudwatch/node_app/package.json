@@ -1,0 +1,17 @@
+{
+  "name": "lambda-w-cloudwatch",
+  "version": "1.0.0",
+  "main": "function.js",
+  "scripts": {
+    "start": "node function",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "description": "",
+  "dependencies": {
+    "express": "^4.19.2",
+    "uuidv4": "^6.2.13"
+  }
+}
