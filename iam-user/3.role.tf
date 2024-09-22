@@ -20,7 +20,7 @@ resource "aws_iam_role" "udacity_test_role" {
                 Effect = "Allow"
                 Sid    = ""
                 Principal = {
-                    AWS = "${resource.aws_iam_user.udacity_iam_usr.arn}",
+                    AWS = "081322589116"
                 }
             },
         ]
@@ -47,8 +47,8 @@ resource "aws_iam_policy" "policy" {
             },
         ]
     })
-    
 }
+
 data "aws_iam_policy" "example" {
     name = "AmazonS3ReadOnlyAccess"
 }
@@ -61,4 +61,9 @@ resource "aws_iam_role_policy_attachment" "attach_1" {
 resource "aws_iam_role_policy_attachment" "attach_2" {
     role       = aws_iam_role.udacity_test_role.name
     policy_arn = data.aws_iam_policy.example.arn
+}
+resource "aws_iam_policy_attachment" "attach_policy_to_user" {
+    name = "udacity_policy_attachment"
+    policy_arn = aws_iam_policy.policy.arn
+    users = [ aws_iam_user.udacity_iam_usr.name ]
 }

@@ -14,8 +14,8 @@ resource "aws_iam_user" "udacity_iam_usr" {
 
 resource "aws_iam_user_login_profile" "example" {
   user    = aws_iam_user.udacity_iam_usr.name
-#   pgp_key = "keybase:Aden"
-  password_reset_required = true
+  # pgp_key = "keybase:${var.user_name}"
+  password_reset_required = false
   password_length = 12
 }
 
