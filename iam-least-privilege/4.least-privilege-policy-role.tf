@@ -59,7 +59,22 @@ resource "aws_iam_policy" "policy" {
                     "arn:aws:s3:::${resource.aws_s3_bucket.main_bucket.id}"
                 ]
             },
-            
+            {
+                Sid         = "AllObjectActions"
+                Effect      = "Allow"
+                Action      = "s3:*Object"
+                Resource    = [
+                    "arn:aws:s3:::${resource.aws_s3_bucket.main_bucket.id}/*"
+                ]
+            },
+            {
+                Affect          = "Deny"
+                Action          = "s3:GetObject"
+                NotResource      = [
+                    "arn:aws:s3:::${resource.aws_s3_bucket.main_bucket.id}",
+                    "arn:aws:s3:::${resource.aws_s3_bucket.main_bucket.id}/*"
+                ]
+            },
         ]
     })
 }
