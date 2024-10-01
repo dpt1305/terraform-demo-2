@@ -38,3 +38,6 @@ terraform.rc
 
 # node app
 **/node_modules/
+
+# python
+python/
