@@ -1,9 +1,18 @@
+# import {
+#   to = aws_kms_key.udacity_key
+#   id = "3e16fdd7-aa82-49af-981c-703cece6fcb3"
+# }
+# import {
+#   to = aws_kms_alias.a
+#   id = "alias/cand-c3-l3-ex2-key"
+# }
+
 data "aws_caller_identity" "current" {}
 
 resource "aws_kms_key" "udacity_key" {
 	description             = "An example multi-Region primary key"
 	# multi_region            = true
-	is_enabled 				= false
+	is_enabled 				= true
 	# enable_key_rotation     = true
 	deletion_window_in_days = 7
 	# policy = jsonencode({

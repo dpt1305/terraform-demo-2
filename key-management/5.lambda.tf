@@ -1,6 +1,11 @@
+variable "lambda_runtime" {
+	type = string
+	default = "python3.12"
+}
+
 data "archive_file" "lambda" {
   type        = "zip"
-  source_file = "./lambda-func/func.py"
+  source_file = "./lambda-func/function.py"
   output_path = "lambda_function_payload.zip"
 }
 
@@ -14,13 +19,25 @@ resource "aws_lambda_function" "test_lambda" {
 
   source_code_hash = data.archive_file.lambda.output_base64sha256
 
-  runtime = "python3.12"
+  runtime = var.lambda_runtime
 
-#   layers = [aws_lambda_layer_version.lambda_layer.arn]
+  layers = [aws_lambda_layer_version.lambda_layer.arn]
 
   environment {
     variables = {
       foo = "bar"
     }
   }
+}
+
+data "archive_file" "layer_zip" {
+  type = "zip"
+  source_dir = "./python"
+  output_path = "layer.zip"
+}
+
+resource "aws_lambda_layer_version" "lambda_layer" {
+  filename   = "layer.zip"
+  layer_name = "udacity_python_lambda_layer"
+  compatible_runtimes = [var.lambda_runtime]
 }
